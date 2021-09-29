@@ -1,3 +1,5 @@
+drop table if exists author, publication, article, book, incollection, inproceedings, authored cascade;
+
 create table author (
    id int,
    name text,
@@ -24,7 +26,7 @@ create table article (
    month int,
    volume text,
    number int,
-   FOREIGN KEY (pubid) REFERENCES publication (pubid)
+   CONSTRAINT article_fk FOREIGN KEY (pubid) REFERENCES publication (pubid)
 );
  
 create table book (
@@ -34,7 +36,7 @@ create table book (
    year int,
    publisher text,
    isbn int,
-   FOREIGN KEY (pubid) REFERENCES publication (pubid)
+   CONSTRAINT book_fk FOREIGN KEY (pubid) REFERENCES publication (pubid)
 );
  
 create table incollection (
@@ -45,7 +47,7 @@ create table incollection (
    booktitle text,
    publisher text,
    isbn int,
-   FOREIGN KEY (pubid) REFERENCES publication (pubid)
+   CONSTRAINT incollection_fk FOREIGN KEY (pubid) REFERENCES publication (pubid)
 );
  
 create table inproceedings (
@@ -55,7 +57,7 @@ create table inproceedings (
    year int,
    booktitle text,
    editor text,
-   FOREIGN KEY (pubid) REFERENCES publication (pubid)
+   CONSTRAINT inproceedings_fk FOREIGN KEY (pubid) REFERENCES publication (pubid)
 );
 
 create table authored (
@@ -64,6 +66,6 @@ create table authored (
    title text,
    year int,
    pubid int,
-   FOREIGN KEY (id) REFERENCES author (id),
-   FOREIGN KEY (pubid) REFERENCES publication (pubid)
+   CONSTRAINT authored_author_fk FOREIGN KEY (id) REFERENCES author (id),
+   CONSTRAINT authored_publication_fk FOREIGN KEY (pubid) REFERENCES publication (pubid)
 );

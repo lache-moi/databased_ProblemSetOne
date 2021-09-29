@@ -30,7 +30,7 @@ select distinct attr from publication_attributes except (
 		) as temp_table_three
 	);
 
-drop table if exists publication_attributes cascade
+drop table if exists publication_attributes cascade;
 
 /*
 	attr  
