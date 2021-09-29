@@ -236,8 +236,7 @@ CREATE TABLE temp3 AS(
         publication.title as booktitle
     FROM
         book
-    LEFT JOIN publication
-        ON book.pubid = publication.pubid
+    LEFT JOIN publication ON book.pubid = publication.pubid
 );
 ​
 -- Join tables to get isbn and publisher
@@ -258,7 +257,7 @@ CREATE TABLE temp4 AS(
 ​
 -- Drop foreign key and insert book data into book table
 ALTER TABLE incollection DROP CONSTRAINT incollection_fk CASCADE;
-INSERT INTO incollection (SELECT pubid, pubkey, title, year, booktitle, publisher, isbn FROM iwannamakeanironmaidenreference);
+INSERT INTO incollection (SELECT pubid, pubkey, title, year, booktitle, publisher, isbn FROM temp4);
 ​
 -- Reinsert foreign key constraint
 ALTER TABLE incollection ADD CONSTRAINT incollection_fk FOREIGN KEY (pubid) REFERENCES publication (pubid);
