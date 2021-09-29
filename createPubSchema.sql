@@ -23,9 +23,9 @@ create table article (
    title text,
    year int,
    journal text,
-   month int,
+   month text,
    volume text,
-   number int,
+   number text,
    CONSTRAINT article_pk PRIMARY KEY (pubid),
    CONSTRAINT article_ak UNIQUE (pubkey),
    CONSTRAINT article_fk FOREIGN KEY (pubid) REFERENCES publication (pubid)
@@ -70,11 +70,7 @@ create table inproceedings (
 
 create table authored (
    id int,
-   pubkey text,
-   title text,
    pubid int,
-   CONSTRAINT authored_pk PRIMARY KEY (id),
-   CONSTRAINT authored_ak UNIQUE (pubkey),
    CONSTRAINT authored_author_fk FOREIGN KEY (id) REFERENCES author (id),
    CONSTRAINT authored_publication_fk FOREIGN KEY (pubid) REFERENCES publication (pubid)
 );
