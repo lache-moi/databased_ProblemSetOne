@@ -9,10 +9,10 @@ Checklist
   - [X] 2.3. Data Acquisition & Loading
   - [X] 2.4. Queries on raw data
 - [ ] 3. Data Transformation
-  - [ ] Author
-  - [ ] Publication
+  - [X] Author
+  - [X] Publication
     - [ ] Article
-    - [ ] Book
+    - [X] Book
     - [ ] Incollection
     - [ ] Inproceeding
   - [ ] Authored

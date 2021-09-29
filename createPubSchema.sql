@@ -26,6 +26,8 @@ create table article (
    month int,
    volume text,
    number int,
+   CONSTRAINT article_pk PRIMARY KEY (pubid),
+   CONSTRAINT article_ak UNIQUE (pubkey),
    CONSTRAINT article_fk FOREIGN KEY (pubid) REFERENCES publication (pubid)
 );
  
@@ -35,7 +37,9 @@ create table book (
    title text,
    year int,
    publisher text,
-   isbn int,
+   isbn text,
+   CONSTRAINT book_pk PRIMARY KEY (pubid),
+   CONSTRAINT book_ak UNIQUE (pubkey),
    CONSTRAINT book_fk FOREIGN KEY (pubid) REFERENCES publication (pubid)
 );
  
@@ -46,7 +50,9 @@ create table incollection (
    year int,
    booktitle text,
    publisher text,
-   isbn int,
+   isbn text,
+   CONSTRAINT incollection_pk PRIMARY KEY (pubid),
+   CONSTRAINT incollection_ak UNIQUE (pubkey),
    CONSTRAINT incollection_fk FOREIGN KEY (pubid) REFERENCES publication (pubid)
 );
  
@@ -57,6 +63,8 @@ create table inproceedings (
    year int,
    booktitle text,
    editor text,
+   CONSTRAINT inproceedings_pk PRIMARY KEY (pubid),
+   CONSTRAINT inproceedings_ak UNIQUE (pubkey),
    CONSTRAINT inproceedings_fk FOREIGN KEY (pubid) REFERENCES publication (pubid)
 );
 
@@ -64,8 +72,9 @@ create table authored (
    id int,
    pubkey text,
    title text,
-   year int,
    pubid int,
+   CONSTRAINT authored_pk PRIMARY KEY (id),
+   CONSTRAINT authored_ak UNIQUE (pubkey),
    CONSTRAINT authored_author_fk FOREIGN KEY (id) REFERENCES author (id),
    CONSTRAINT authored_publication_fk FOREIGN KEY (pubid) REFERENCES publication (pubid)
 );
