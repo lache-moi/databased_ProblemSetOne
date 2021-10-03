@@ -4,6 +4,7 @@ import numpy as np
 from collections import defaultdict
 BIN_SIZE_1 = 100
 BIN_SIZE_2 = 50
+
 # 4.2.1. Number of Collaborators Histogram
 collab_histo = csv.reader(open("collab_tally.csv"))
 collab_tally = defaultdict(int)
