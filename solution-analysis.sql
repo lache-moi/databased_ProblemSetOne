@@ -179,7 +179,127 @@ EXCEPT
         author JOIN authored ON author.id = authored.id
                JOIN inproceedings ON authored.pubid = inproceedings.pubid 
                     AND inproceedings.booktitle='PODS';
+/*
+   id    |           name            
+---------+---------------------------
+  673680 | Elke A. Rundensteiner
+  408029 | Chee Yong Chan
+  743723 | Fatma Özcan
+ 1320288 | K. Selçuk Candan
+  323544 | Boon Thau Loo
+  169298 | Andrew Pavlo
+ 2518006 | Theodoros Rekatsinas
+ 1418215 | Krithi Ramamritham
+ 1149100 | Jens Teubner
+  857634 | Goetz Graefe
+ 1181388 | Jignesh M. Patel
+ 2406045 | Stanley B. Zdonik
+ 2544963 | Tim Kraska
+  268343 | Badrish Chandramouli
+ 1709917 | Meihui Zhang
+  484536 | Cong Yu 0001
+ 2725542 | Xiaokui Xiao
+ 1846220 | Nan Zhang 0004
+  747675 | Feifei Li 0001
+ 1877901 | Nick Roussopoulos
+  695197 | Eric Lo 0001
+  831074 | Georgia Koutrika
+  380276 | Carsten Binnig
+ 1287171 | Juliana Freire
+ 1177033 | Jiawei Han 0001
+ 2890000 | Zhifeng Bao
+  312162 | Bingsheng He
+ 1262462 | José A. Blakeley
+  322298 | Bolin Ding
+  369046 | Carlo Curino
+  413986 | Chengkai Li
+ 1739169 | Michael Stonebraker
+ 1730458 | Michael J. Cafarella
+ 2767382 | Yanlei Diao
+ 1484830 | Lijun Chang
+ 1141943 | Jeffrey Xu Yu
+ 2733144 | Xin Luna Dong
+ 2572006 | Torsten Grust
+ 2516717 | Themis Palpanas
+ 1042131 | Ioana Manolescu
+   43984 | Aditya G. Parameswaran
+ 1814140 | Mourad Ouzzani
+ 1881007 | Nicolas Bruno
+  889163 | Guy M. Lohman
+ 2885155 | Zhenjie Zhang
+  884711 | Guoliang Li 0001
+ 2399171 | Sourav S. Bhowmick
+ 1462813 | Lei Chen 0002
+ 2723287 | Xiaofang Zhou 0001
+ 1525081 | Luis Gravano
+ 1192930 | Jingren Zhou
+ 2796846 | Yinghui Wu
+ 1381962 | Kevin Chen-Chuan Chang
+ 2744190 | Xu Chu
+  146845 | Anastasia Ailamaki
+  710598 | Eugene Wu 0002
+ 1293972 | Jun Yang 0001
+ 2669556 | Wei Wang 0011
+ 2001300 | Peter A. Boncz
+ 2442899 | Suman Nath
+  550286 | David B. Lomet
+  606924 | Dirk Habich
+  923388 | Hans-Arno Jacobsen
+ 2591821 | Ugur Çetintemel
+  528407 | Daniel J. Abadi
+  479535 | Clement T. Yu
+ 2707612 | Wook-Shin Han
+  203477 | Anthony K. H. Tung
+ 1846139 | Nan Tang 0001
+  141214 | AnHai Doan
+  618211 | Donald Kossmann
+ 1248862 | Jorge-Arnulfo Quiané-Ruiz
+   21343 | Aaron J. Elmore
+ 1029571 | Ihab F. Ilyas
+ 1384720 | Kevin S. Beyer
+ 1043779 | Ion Stoica
+  340382 | Bruce G. Lindsay 0001
+ 1172171 | Jianhua Feng
+  812799 | Gang Chen 0001
+   57571 | Ahmed K. Elmagarmid
+ 2794029 | Yinan Li
+  235231 | Arun Kumar 0001
+ 2413303 | Stefano Ceri
+ 1173072 | Jianliang Xu
+ 2239007 | Sailesh Krishnamurthy
+  818565 | Gautam Das 0001
+ 2368847 | Sihem Amer-Yahia
+  240604 | Ashraf Aboulnaga
+ 1167182 | Jian Pei
+  373470 | Carlos Ordonez 0001
+ 2438617 | Sudipto Das
+ 2432310 | Stratos Idreos
+ 2631728 | Viktor Leis
+  125548 | Alvin Cheung
+ 1035983 | Immanuel Trummer
+ 1128294 | Jayavel Shanmugasundaram
+ 2731998 | Xifeng Yan
+ 2061960 | Qiong Luo 0001
+ 1096594 | James Cheng
+ 1173547 | Jiannan Wang
+  108616 | Alfons Kemper
+ 2357889 | Shuigeng Zhou
+ 2114651 | Raymond Chi-Wing Wong
+  348352 | Byron Choi
+ 2252504 | Samuel Madden
+  813762 | Gao Cong
+  309567 | Bin Cui 0001
+ 2648780 | Volker Markl
+ 1356265 | Kaushik Chakrabarti
+ 1183795 | Jim Gray 0001
+ 1787469 | Mohamed F. Mokbel
+  279982 | Barzan Mozafari
+ 1512833 | Lu Qin
+(113 rows)
 
+Time: 3512.878 ms (00:03.513)
+                            */
+                            
 SELECT
     author.id, author.name
 FROM
@@ -233,4 +353,137 @@ EXCEPT
 Time: 3450.462 ms (00:03.450)
                             */
 
+-----------
+/* 4.1.4 */
+-----------
+CREATE TABLE temp1 as (
+	SELECT 
+		pubid, 
+		year-MOD(year,10) AS decade 
+	FROM PUBLICATION
+	);
+SELECT decade, COUNT(*) FROM temp1 GROUP BY decade;
+DROP TABLE IF EXISTS temp1 CASCADE;
+/*
+Time: 11329.187 ms (00:11.329)
+dblp=# SELECT decade, COUNT(*) FROM temp1 GROUP BY decade; 
+ decade |  count
+--------+---------
+   1930 |      56
+   1940 |     192
+   1950 |    2617
+   1960 |   13335
+   1970 |   47266
+   1980 |  138895
+   1990 |  461642
+   2000 | 1436105
+   2010 | 3000916
+   2020 |  680882
+        |       3
+(11 rows)
 
+Time: 961.943 ms 
+Total Time: 12-13s
+
+-----------
+/* 4.1.5 */
+-----------
+
+CREATE TABLE temp1 as (
+	SELECT DISTINCT a.id aid, b.id bid
+	FROM authored a, authored b 
+	WHERE a.pubid=b.pubid 
+);
+-- Time: 181051.330 ms (03:01.051)
+CREATE TABLE temp2 as (
+	SELECT aid, COUNT(*) - 1 cnt
+	FROM temp1
+	GROUP BY aid
+	ORDER BY cnt DESC
+	LIMIT 20
+);
+-- Time: 25564.455 ms (00:25.564)
+SELECT 
+	name, aid, cnt 
+FROM 
+	temp2 JOIN author ON aid=id;
+-- Time: 3.865 ms
+DROP TABLE IF EXISTS temp1, temp2 CASCADE;
+-- Total Time: ~3:27 mins
+
+/* 
+   name    |   aid   | cnt  
+-----------+---------+------
+ Wei Wang  | 2669545 | 4138
+ Yang Liu  | 2763832 | 4132
+ Wei Zhang | 2670223 | 4080
+ Lei Zhang | 1463749 | 3777
+ Yu Zhang  | 2826988 | 3769
+ Wei Li    | 2668787 | 3564
+ Lei Wang  | 1463390 | 3529
+ Xin Wang  | 2733317 | 3135
+ Wei Liu   | 2669012 | 3067
+ Yi Zhang  | 2786259 | 2978
+ Xin Li    | 2732952 | 2932
+ Jing Wang | 1189643 | 2904
+ Yang Li   | 2763715 | 2902
+ Jing Li   | 1189298 | 2843
+ Jian Wang | 1167306 | 2821
+ Yan Li    | 2760396 | 2802
+ Li Zhang  | 1475932 | 2792
+ Jun Wang  | 1293731 | 2790
+ Wei Chen  | 2668181 | 2755
+ Yan Zhang | 2760990 | 2753
+                           */
+
+-----------
+/* 4.1.6 */
+-----------
+CREATE TABLE temp1 as (
+	SELECT 
+		pubid, 
+		year-MOD(year,10) AS decade 
+	FROM PUBLICATION
+);
+-- 11736.906 ms (00:11.737)
+CREATE TABLE temp2 as(
+    SELECT id, decade, count(*)
+    FROM authored JOIN temp1 ON authored.pubid = temp1.pubid
+    GROUP BY id, decade
+;
+-- 33875.413 ms (00:33.875)
+CREATE TABLE temp3 as(
+    SELECT decade, max(count)
+    FROM temp2
+    GROUP BY decade
+);
+-- Time: 562.929 ms
+
+SELECT author.name, temp2.id, temp2.decade, temp3.max 
+FROM author, temp2, temp3 
+WHERE author.id=temp2.id AND temp2.decade=temp3.decade AND temp2.count=temp3.max
+ORDER BY temp2.decade;
+-- Time: 1640.675 ms (00:01.641)
+-- Total Time: ~48s
+
+DROP TABLE IF EXISTS temp1, temp2, temp3 CASCADE;
+
+/*
+          name           |   id    | decade | max  
+-------------------------+---------+--------+------
+ Willard Van Orman Quine | 2692081 |   1930 |    7
+ Willard Van Orman Quine | 2692081 |   1940 |   10
+ Hao Wang 0001           |  926178 |   1950 |   14
+ Henry C. Thacher Jr.    |  955661 |   1960 |   39
+ Jeffrey D. Ullman       | 1139737 |   1970 |   80
+ Azriel Rosenfeld        |  260047 |   1970 |   80
+ Azriel Rosenfeld        |  260047 |   1980 |  172
+ Toshio Fukuda           | 2574653 |   1990 |  256
+ Wen Gao 0001            | 2678269 |   2000 |  564
+ H. Vincent Poor         |  900067 |   2010 | 1214
+ Yang Liu                | 2763832 |   2020 |  507
+                                                 */
+
+-----------
+/* 4.1.7 */
+-----------
