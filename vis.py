@@ -17,9 +17,12 @@ for row in collab_histo:
 x = [BIN_SIZE_1*key for key in collab_tally.keys()]
 y = [np.log10(val) for val in collab_tally.values()] 
 
-plt.bar(x,y, width = BIN_SIZE_1)
-plt.savefig('Collaborators Histogram')
-plt.close()
+fig, (a,b) = plt.subplots(2)
+a.set_title('A single plot')
+a.bar(x,y, width = BIN_SIZE_1)
+a.set_title('Histogram of number of collaborators')
+a.set_xlabel('Number of collaborators')
+a.set_ylabel('$log_{10}$(tally)')
 
 # 4.2.2. Number of Publications Histogram
 pub_histo = csv.reader(open("pub_tally.csv"))
@@ -31,6 +34,12 @@ for row in pub_histo:
 
 x = [BIN_SIZE_2*key for key in pub_tally.keys()]
 y = [np.log10(val) for val in pub_tally.values()] 
-plt.bar(x,y, width = BIN_SIZE_2)
-plt.savefig('Publications Histogram')
+
+b.bar(x,y, width = BIN_SIZE_2)
+b.set_title('Histogram of number of publications')
+b.set_xlabel('Number of publications')
+b.set_ylabel('$log_{10}$(tally)')
+fig.set_figheight(10)
+plt.tight_layout()
+plt.savefig('Collaborators_and_Publications_Histogram.pdf')
 plt.close()

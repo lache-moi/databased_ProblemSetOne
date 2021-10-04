@@ -487,3 +487,78 @@ DROP TABLE IF EXISTS temp1, temp2, temp3 CASCADE;
 -----------
 /* 4.1.7 */
 -----------
+
+CREATE TABLE temp1 AS(
+	SELECT DISTINCT
+	pubid, SUBSTRING(homepage FROM '(?:.*://)?(?:www\.)?([^/]*)') AS website_domain 
+	FROM author JOIN authored ON author.id=authored.id
+	WHERE homepage IS NOT NULL
+	);
+-- Time: 2730.604 ms (00:02.731)
+
+SELECT website_domain, count(*) cnt 
+FROM temp1 JOIN inproceedings ON temp1.pubid = inproceedings.pubid AND inproceedings.booktitle='VLDB'
+GROUP BY website_domain 
+ORDER BY cnt DESC
+LIMIT 20;
+
+/* For VLDB
+          website_domain          | cnt 
+----------------------------------+-----
+ dl.acm.org                       |  43
+ scholar.google.com               |  13
+ research.microsoft.com           |   6
+ wikidata.org                     |   5
+ harald-schoening.de              |   3
+ sergey.melnix.com                |   3
+ orcid.org                        |   3
+ eecs.umich.edu                   |   3
+ cs.utwente.nl                    |   2
+ isni.org                         |   2
+ informatik.tu-muenchen.de        |   2
+ lirmm.fr                         |   1
+ mathematik.uni-marburg.de        |   1
+ mvdirona.com                     |   1
+ poetke.de                        |   1
+ twitter.com                      |   1
+ web.mit.edu                      |   1
+ www-i9.informatik.rwth-aachen.de |   1
+ caip.rutgers.edu                 |   1
+ www-rocq.inria.fr                |   1
+
+ Time: 416.918 ms
+                                      */
+
+SELECT website_domain, count(*) cnt 
+FROM temp1 JOIN inproceedings ON temp1.pubid = inproceedings.pubid AND inproceedings.booktitle='CHI'
+GROUP BY website_domain 
+ORDER BY cnt DESC
+LIMIT 20;
+
+/*
+      website_domain       | cnt 
+---------------------------+-----
+ dl.acm.org                |  95
+ wikidata.org              |  80
+ orcid.org                 |  60
+ scholar.google.com        |  27
+ stefaniemueller.org       |  10
+ caip.rutgers.edu          |   8
+ vis.uni-stuttgart.de      |   7
+ awards.acm.org            |   6
+ d-nb.info                 |   6
+ mathgenealogy.org         |   5
+ yardi.people.si.umich.edu |   5
+ alumni.media.mit.edu      |   5
+ jellis.net                |   5
+ abbywanyuliu.com          |   5
+ hci.rwth-aachen.de        |   4
+ benjamincowan.com         |   4
+ linkedin.com              |   3
+ cs.uta.fi                 |   2
+ aast.edu                  |   2
+ city.ac.uk                |   2
+
+Time: 370.599 ms
+                                */
+DROP TABLE IF EXISTS temp1 CASCADE;

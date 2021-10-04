@@ -17,14 +17,14 @@ Checklist
     - [X] Inproceeding
   - [X] Authored
 - [ ] 4. Data Analysis
-  - [ ] 4.1. 
+  - [x] 4.1. 
     - [X] 4.1.1
     - [X] 4.1.2.
     - [X] 4.1.3.
     - [X] 4.1.4.
     - [X] 4.1.5.
     - [X] 4.1.6. (bonus)
-    - [ ] 4.1.7. (bonus)
+    - [X] 4.1.7. (bonus)
   - [X] 4.2.
     - [X] 4.2.1.
     - [x] 4.2.2.
